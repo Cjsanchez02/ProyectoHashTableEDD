@@ -9,5 +9,22 @@ package proyecto2;
  * @author USER
  */
 public class Investigaciones {
+    String titulo;
+    String autores;
+    String resumen;
+    String keywords;
     
+    public Investigaciones() {
+        this.titulo = "";
+        this.autores = "";
+        this.resumen = "";
+        this.keywords = "";
+    }
+
+    public Investigaciones(String titulo) {
+        this.titulo = titulo;
+        this.autores = "";
+        this.resumen = "";
+        this.keywords = "";
+    }
 }
