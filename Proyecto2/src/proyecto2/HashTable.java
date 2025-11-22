@@ -15,7 +15,5 @@ public class HashTable {
         this.conjunto = new Investigaciones [100];
     }
     
-    public int hash(String titulo){
-        //se hace la hash y se guarda la inv en alguno de los espacios del array
-    }
+    
 }
