@@ -19,7 +19,7 @@ public class NodoArbol {
         info = elem;
         izq = null;
         dec = null;
-        altura = 0;
+        altura = 1;
         lista = new ListaInvestigaciones();
     }
     

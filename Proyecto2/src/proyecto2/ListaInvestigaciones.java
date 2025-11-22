@@ -44,4 +44,14 @@ public class ListaInvestigaciones {
             }            
         }
     }
+    
+    public int contar_Investigaciones(){
+        int resultado = 0;
+        NodoInvestigacion pNodo = pfirst;
+        while(pNodo!= null){
+            resultado += 1;
+            pNodo = pNodo.pnext;
+        }
+        return resultado;
+    }
 }
