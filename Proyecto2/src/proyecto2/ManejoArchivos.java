@@ -68,88 +68,31 @@ public class ManejoArchivos {
                     if((currentLine.startsWith("Palabras claves:") && (!currentLine.isEmpty()))){
                         String [] aux2 = currentLine.split("[.\\:]");
                         algo.conjunto[valorcaja].keywords = aux2[1];
-                        //se busca el articulo y se anaden las palabras claves
+                        algo.conjunto[valorcaja].contar_keywords();
                     }
                 }
             }
         }catch(IOException e){
             JOptionPane.showMessageDialog(null, "Ocurrió un error");
-            return null;
         }
     }
     
-    /** Se va a recibir un grafo que luego se va a recorrer junto a las conexiones
-     * de cada nodo para actualizar el archivo de texto.
-     * @param aux grafo modificado
+    /** Se va a recibir la tabla hash y se va a guardar un archivo con la 
+     * informaci&oacute;n de la sesi&oacute;n en la carpeta que el usuario seleccione.
+     * @param algo tabla hash modificada
      */
-    public void actualizar_archivo(Grafo aux){
+    public void actualizar_archivo(HashTable algo){
         try{
-            if(this.selectedArchivo != null){
-                FileWriter archivo_2 = new FileWriter(this.selectedArchivo);
-                BufferedWriter escribe = new BufferedWriter(archivo_2);
-                escribe.write("usuarios");
-                escribe.newLine();
-                escribe.write(aux.mostrar());
-                escribe.write("relaciones");
-                escribe.newLine();
-                escribe.write(aux.mostrarRelaciones());
-                escribe.flush();
+            JFileChooser file = new JFileChooser();
+            file.showSaveDialog(null);
+            FileWriter archivo2 = new FileWriter(file.getSelectedFile());
+            BufferedWriter escribe = new BufferedWriter(archivo2);
+            for(Investigaciones inv: algo.conjunto){
+                escribe.write(inv.mostrar());
             }
+            escribe.close();
         }catch(IOException e){
             JOptionPane.showMessageDialog(null, "Ocurrió un error");
-        }
-    }
-    
-    /**
-     * Cargar desde archivo sin JFileChooser (para auto-carga en Interfaz).
-     */
-    public static Grafo cargarDesdeArchivo(File archivo) throws IOException {
-        if (archivo == null || !archivo.exists() || !archivo.isFile()) return null;
-
-        try (BufferedReader lector = new BufferedReader(
-                new InputStreamReader(new FileInputStream(archivo), StandardCharsets.UTF_8))) {
-
-            Grafo grafo = new Grafo();
-            boolean leyendoUsuarios = false;
-            boolean leyendoRelaciones = false;
-
-            String linea;
-            while ((linea = lector.readLine()) != null) {
-                String texto = linea.trim();
-                if (texto.isEmpty()) continue;
-
-                String lower = texto.toLowerCase();
-                if (lower.equals("usuarios"))   { leyendoUsuarios = true;  leyendoRelaciones = false; continue; }
-                if (lower.equals("relaciones")) { leyendoUsuarios = false; leyendoRelaciones = true;  continue; }
-
-                if (leyendoUsuarios) {
-                    // Cada línea debe ser un @usuario
-                    if (!texto.startsWith("@")) continue; // ignora basura
-                    if (!grafo.existe_nodo(texto)) grafo.insertar(texto);
-                } else if (leyendoRelaciones) {
-                    // Formato: @a, @b
-                    String[] partes = texto.split(",");
-                    if (partes.length < 2) continue;
-                    String origen = partes[0].trim();
-                    String destino = partes[1].trim();
-                    if (!origen.startsWith("@") || !destino.startsWith("@")) continue;
-
-                    if (!grafo.existe_nodo(origen))  grafo.insertar(origen);
-                    if (!grafo.existe_nodo(destino)) grafo.insertar(destino);
-
-                    NodoGrafo nodoOrigen = grafo.Buscar(origen);
-                    if (nodoOrigen != null && !nodoOrigen.minilista.Buscar(destino)) {
-                        nodoOrigen.minilista.insertar_nueva(destino);
-                    }
-                } else {
-                    // Antes de ver encabezados, si aparece algo tipo @usuario, considéralo usuario
-                    if (texto.startsWith("@") && !texto.contains(",")) {
-                        leyendoUsuarios = true;
-                        if (!grafo.existe_nodo(texto)) grafo.insertar(texto);
-                    }
-                }
-            }
-            return grafo;
         }
     }
 }
