@@ -8,17 +8,19 @@ package proyecto2;
  *
  * @author USER
  */
-public class Nodo {
+public class NodoArbol {
     public String info;
-    public Nodo izq;
-    public Nodo dec;
+    public NodoArbol izq;
+    public NodoArbol dec;
     public int altura;
+    public ListaInvestigaciones lista;
     
-    public Nodo(String elem){
+    public NodoArbol(String elem){
         info = elem;
         izq = null;
         dec = null;
-        altura = 0;
+        altura = 1;
+        lista = new ListaInvestigaciones();
     }
     
 }
