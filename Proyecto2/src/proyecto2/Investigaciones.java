@@ -54,7 +54,7 @@ public class Investigaciones {
             texto += texto + s.trim() + "\n";
         }
         texto += "\nResumen\n" + this.resumen + "\n";
-        texto += "\nPalabras claves: " + this.keywords + "\f";
+        texto += "\nPalabras claves: " + this.keywords + "\n";
         return texto;
     }
 }

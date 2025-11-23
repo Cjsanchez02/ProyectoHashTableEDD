@@ -9,7 +9,7 @@ package proyecto2;
  * @author mgsr1
  */
 public class Interfaz extends javax.swing.JFrame {
-    HashTable tabla = new HashTable();
+    HashTable tabla = new HashTable(100);
     
     private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(Interfaz.class.getName());
 
@@ -38,7 +38,7 @@ public class Interfaz extends javax.swing.JFrame {
         jLabel2 = new javax.swing.JLabel();
         aut = new javax.swing.JComboBox<>();
         exit = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
+        cargarResu = new javax.swing.JButton();
         busqresu = new javax.swing.JButton();
         busqkeyw = new javax.swing.JButton();
         jLabel3 = new javax.swing.JLabel();
@@ -77,13 +77,28 @@ public class Interfaz extends javax.swing.JFrame {
         });
         getContentPane().add(exit, new org.netbeans.lib.awtextra.AbsoluteConstraints(680, 0, -1, -1));
 
-        jButton2.setText("Añadir resumen");
-        getContentPane().add(jButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(520, 40, -1, -1));
+        cargarResu.setText("Añadir resumen");
+        cargarResu.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cargarResuActionPerformed(evt);
+            }
+        });
+        getContentPane().add(cargarResu, new org.netbeans.lib.awtextra.AbsoluteConstraints(520, 40, -1, -1));
 
         busqresu.setText("Analizar");
+        busqresu.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                busqresuActionPerformed(evt);
+            }
+        });
         getContentPane().add(busqresu, new org.netbeans.lib.awtextra.AbsoluteConstraints(540, 120, -1, -1));
 
         busqkeyw.setText("Continuar");
+        busqkeyw.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                busqkeywActionPerformed(evt);
+            }
+        });
         getContentPane().add(busqkeyw, new org.netbeans.lib.awtextra.AbsoluteConstraints(530, 260, -1, -1));
 
         jLabel3.setText("Búsqueda por palabra clave:");
@@ -93,14 +108,40 @@ public class Interfaz extends javax.swing.JFrame {
         getContentPane().add(keyw, new org.netbeans.lib.awtextra.AbsoluteConstraints(620, 230, -1, -1));
 
         busqaut.setText("Continuar");
+        busqaut.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                busqautActionPerformed(evt);
+            }
+        });
         getContentPane().add(busqaut, new org.netbeans.lib.awtextra.AbsoluteConstraints(530, 190, -1, -1));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
     private void exitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_exitActionPerformed
+        ManejoArchivos archi = new ManejoArchivos();
+        archi.actualizar_archivo(tabla);
         this.dispose();
     }//GEN-LAST:event_exitActionPerformed
+
+    private void cargarResuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cargarResuActionPerformed
+        ManejoArchivos archi = new ManejoArchivos();
+        archi.subir_archivo(tabla);
+        
+    }//GEN-LAST:event_cargarResuActionPerformed
+
+    private void busqkeywActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_busqkeywActionPerformed
+        this.tabla.BuscarPalabraClave(this.keyw.getSelectedItem().toString());
+    }//GEN-LAST:event_busqkeywActionPerformed
+
+    private void busqautActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_busqautActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_busqautActionPerformed
+
+    private void busqresuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_busqresuActionPerformed
+        String texto = this.tabla.BuscarResumen(this.resu.getSelectedItem().toString()).mostrar();
+        this.jTextArea1.setText(texto);
+    }//GEN-LAST:event_busqresuActionPerformed
 
     /**
      * @param args the command line arguments
@@ -133,8 +174,8 @@ public class Interfaz extends javax.swing.JFrame {
     private javax.swing.JButton busqkeyw;
     private javax.swing.JButton busqresu;
     private javax.swing.ButtonGroup buttonGroup1;
+    private javax.swing.JButton cargarResu;
     private javax.swing.JButton exit;
-    private javax.swing.JButton jButton2;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;

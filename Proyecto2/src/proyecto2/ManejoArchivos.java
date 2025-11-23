@@ -7,12 +7,9 @@ package proyecto2;
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.File;
-import java.io.FileInputStream;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.io.InputStreamReader;
-import java.nio.charset.StandardCharsets;
 import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
 
@@ -40,15 +37,16 @@ public class ManejoArchivos {
             this.selectedArchivo = archivo;
             if(archivo != null){
                 int aux = 0;
-                int valorcaja = 0;
+                String tit = "";
                 FileReader archivo_2 = new FileReader(archivo);
                 BufferedReader lee = new BufferedReader(archivo_2);
                 String currentLine;
                 while((currentLine = lee.readLine())!= null){
                     if(aux == 0){
                         Investigaciones inv = new Investigaciones();
-                        valorcaja = algo.hash(currentLine);
-                        algo.conjunto[valorcaja] = inv;
+                        inv.autores = currentLine;
+                        algo.AgregarResumen(inv);
+                        tit = currentLine;
                     }
                     if(currentLine.equalsIgnoreCase("autores")){
                         aux = 1;
@@ -57,18 +55,18 @@ public class ManejoArchivos {
                         aux = 2;
                     }
                     if((aux == 1) && (!currentLine.equalsIgnoreCase("autores") && (!currentLine.isEmpty()))){
-                        if(algo.conjunto[valorcaja].autores.isBlank()){
-                            algo.conjunto[valorcaja].autores = currentLine;
+                        if(algo.BuscarResumen(tit).autores.isBlank()){
+                            algo.BuscarResumen(tit).autores = currentLine;
                         }
-                        algo.conjunto[valorcaja].autores = algo.conjunto[valorcaja].autores + ", " + currentLine;
+                        algo.BuscarResumen(tit).autores = algo.BuscarResumen(tit).autores + ", " + currentLine;
                     }
                     if((aux == 2) && (!currentLine.equalsIgnoreCase("resumen") && (!currentLine.isEmpty()))){
-                        algo.conjunto[valorcaja].resumen = currentLine + " ";
+                        algo.BuscarResumen(tit).resumen = currentLine + " ";
                     }
                     if((currentLine.startsWith("Palabras claves:") && (!currentLine.isEmpty()))){
                         String [] aux2 = currentLine.split("[.\\:]");
-                        algo.conjunto[valorcaja].keywords = aux2[1];
-                        algo.conjunto[valorcaja].contar_keywords();
+                        algo.BuscarResumen(tit).keywords = aux2[1];
+                        algo.BuscarResumen(tit).contar_keywords();
                     }
                 }
             }
@@ -88,7 +86,7 @@ public class ManejoArchivos {
             FileWriter archivo2 = new FileWriter(file.getSelectedFile());
             BufferedWriter escribe = new BufferedWriter(archivo2);
             for(Investigaciones inv: algo.conjunto){
-                escribe.write(inv.mostrar());
+                escribe.write(inv.mostrar() + "\f");
             }
             escribe.close();
         }catch(IOException e){
