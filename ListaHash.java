@@ -78,4 +78,42 @@ public class ListaHash {
 
     }
 
+    public String Mostrar_Titulos_Lista_Hash() {
+        NodoHash pAux;
+        String cadena = "";
+        if (this.EsVacio()) {
+            return "La lista esta vacia";
+        } else {
+            pAux = this.Primero();
+            while (pAux != this.Ultimo()) {
+                cadena = cadena + pAux.data.titulo + ". ";
+                pAux = pAux.pNext;
+            }
+            return cadena;
+        }
+
+    }
+    
+    public Resumen[] Buscar_Palabra_Clave_Hash(String palabra_clave) {
+        Resumen arreglo_resumenes[] = new Resumen [20];
+        NodoHash pAux = pFirst;
+        int indice = 0;
+        
+        if (pFirst == null) {
+            return null;
+        }
+        while (pAux != null) {
+            
+            if(pAux.data.palabras_claves.contains(palabra_clave)){
+                arreglo_resumenes[indice] = pAux.data;
+                indice ++;
+            }
+            pAux = pAux.pNext;
+        }
+       return arreglo_resumenes;
+    
+    }
+    
+ 
+
 }

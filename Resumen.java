@@ -11,13 +11,13 @@ package proyecto_estructuras_2;
 public class Resumen {
     public String titulo;
     public String autores;
-    public String resumen;
+    public String cuerpo;
     public String palabras_claves;
 
-    public Resumen(String titulo, String autores, String resumen, String palabras_claves) {
+    public Resumen(String titulo, String autores, String cuerpo, String palabras_claves) {
         this.titulo = titulo;
         this.autores = autores;
-        this.resumen = resumen;
+        this.cuerpo = cuerpo;
         this.palabras_claves = palabras_claves;
     }
 
