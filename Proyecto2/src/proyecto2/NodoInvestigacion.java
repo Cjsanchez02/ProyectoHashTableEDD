@@ -5,7 +5,8 @@
 package proyecto2;
 
 /**
- *
+ * @pnext es un apuntador al siguiente nodo, vital para ListaInvestigaciones
+ * @info contiene el nombre de la Investigación
  * @author USER
  */
 public class NodoInvestigacion {

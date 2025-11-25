@@ -18,20 +18,25 @@ public class ArbolAVL {
     
     // EsAutores sirve para determinar si el árbol es de autores o palabras clave
     // dado que el Collator debe diferenciar los acentos dependiendo si son palabras clave o autores
+    // 
     public ArbolAVL(boolean estado){
         raiz = null;
         esAutores = estado;
         if (esAutores) {
+            // Collator.TERTIARY distinga entre acentos, mayúsculas y minúsculas
             collator.setStrength(Collator.TERTIARY);  
         } else {
+            // Collator.PRIMARY hace que la comparación por collator tome igual a, á y A.
             collator.setStrength(Collator.PRIMARY);
         }
     }
     
+    // Función para insertar autores
     public void insertarAutor(String elem, String inves){
         raiz = insertarAVL(raiz, elem, inves);
     }
     
+    // Función para insertar palabras clave
     public void insertarPalabraClave(String elem, String inves){
         raiz = insertarAVL(raiz, elem, inves);
     }
@@ -48,29 +53,67 @@ public class ArbolAVL {
         }
         else if (collator.compare(elem, pNodo.info) > 0){
             pNodo.dec = insertarAVL(pNodo.dec, elem, investigacion);
-        } else {
+        } else { // Si el nodo existe significa que hay varias investigaciones asociadas a esa palabra
             pNodo.lista.insertar(investigacion);
             return pNodo;
         }
         
+        // Se actualiza la altura del Nodo
         pNodo.altura = 1 + 
                 mayor(getAltura(pNodo.izq), getAltura(pNodo.dec));
         
+        
+        // Se obtiene el factor de equilibrio
         int factor = getFactorEquilibrio(pNodo);
+        
+        // Caso Rotacion Simple a la derecha
+        /*
+                Elva (2)
+              /
+            Christian (1)
+          /
+        Anthony (0)
+        */
         
         if (factor > 1 && pNodo.izq != null && collator.compare(elem, pNodo.izq.info) < 0){
             return giroDerecha(pNodo);
         }
         
+        // Caso Rotacion Simple Izquierda
+        /*
+        Anthony (-2)
+          \
+           Christian (-1)
+              \
+               Elva (0)
+        */
         if (factor < -1 && pNodo.dec != null && collator.compare(elem, pNodo.dec.info) > 0){
             return giroIzquierda(pNodo);
         }
+        
+        // Caso Rotacion Doble Izquierda-Derecha
+        /*
+               Elva (2)
+              /
+            Anthony (-1)
+              \
+               Christian (0)
+        */
         
         if (factor > 1 && pNodo.izq != null && collator.compare(elem, pNodo.izq.info) > 0){
             pNodo.izq = giroIzquierda(pNodo.izq);
             return giroDerecha(pNodo);
         }
         
+        // Caso Rotacion Doble Derecha-Izquierda
+        /*
+        Anthony (-2)
+          \
+           Elva (1)
+          /
+         Christian (0)
+        */
+
         if (factor < -1 && pNodo.dec != null && collator.compare(elem, pNodo.dec.info) < 0){
             pNodo.dec = giroDerecha(pNodo.dec);
             return giroIzquierda(pNodo);
@@ -79,6 +122,7 @@ public class ArbolAVL {
         return pNodo;
     }
     
+    // Búsqueda recursiva en el árbol AVL
     public NodoArbol Buscar(NodoArbol pNodo, String elem){
         if (pNodo == null){
             return null;
@@ -163,15 +207,32 @@ public class ArbolAVL {
         return current;
     }
     
-    public void imprimirInOrder() {
-        inOrder(raiz);
+    // Retorna la info de todo el AVL en InOrden, para que esté ordenado alfabéticamente
+    public String imprimirInOrden() {
+        return inOrder(raiz).trim();
     }
-    
-    private void inOrder(NodoArbol focusNode) {
-        if (focusNode != null) {
-            inOrder(focusNode.izq);
-            System.out.print(focusNode);
-            inOrder(focusNode.dec);
+
+    private String inOrder(NodoArbol nodo) {
+        if (nodo == null) {
+            return "";
         }
+
+        String izquierda = inOrder(nodo.izq);
+        String actual = nodo.info;
+        String derecha = inOrder(nodo.dec);
+
+        String resultado = "";
+
+        if (!izquierda.isEmpty()) {
+            resultado += izquierda + ", ";
+        }
+
+        resultado += actual;
+
+        if (!derecha.isEmpty()) {
+            resultado += ", " + derecha;
+        }
+
+        return resultado;
     }
 }

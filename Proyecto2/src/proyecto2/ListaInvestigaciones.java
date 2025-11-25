@@ -5,7 +5,8 @@
 package proyecto2;
 
 /**
- *
+ * ListaInvestigaciones es una lista con apuntador al primer y último elemento
+ * Sirve para guardar títulos de Investigaciones
  * @author USER
  */
 public class ListaInvestigaciones {
@@ -17,10 +18,12 @@ public class ListaInvestigaciones {
         plast = null;
     }
     
+    // Verifica si está vacía la lista
     public boolean esVacio(){
         return pfirst == null;
     }
     
+    // Realiza una búsqueda iterativa en la lista
     public boolean Buscar(String elem){
         NodoInvestigacion pNodo = pfirst;
         while (pNodo != null){
@@ -32,6 +35,7 @@ public class ListaInvestigaciones {
         return false;
     }
     
+    //Inserta al último elemento de la lista
     public void insertar(String elem){
         if (esVacio()){
             pfirst = new NodoInvestigacion(elem);
@@ -45,6 +49,7 @@ public class ListaInvestigaciones {
         }
     }
     
+    // Cuenta la cantidad de Investigaciones que tengas la lista
     public int contar_Investigaciones(){
         int resultado = 0;
         NodoInvestigacion pNodo = pfirst;

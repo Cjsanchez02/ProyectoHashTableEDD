@@ -5,7 +5,11 @@
 package proyecto2;
 
 /**
- *
+ * @author USER
+ * @String contiene la información del Nodo
+ * @altura sirve para que el arbol AVL lo balanceé
+ * @ListaInvestigaciones contendrá la lista en donde 
+ * aparezca cada palabra clave o autor
  * @author USER
  */
 public class NodoArbol {
