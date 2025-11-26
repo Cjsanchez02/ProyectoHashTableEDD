@@ -12,7 +12,6 @@ public class Interfaz extends javax.swing.JFrame {
     HashTable tabla = new HashTable(100);
     ArbolAVL autores;
     ArbolAVL keywords;
-    ArbolAVL inv;
     
     private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(Interfaz.class.getName());
 
