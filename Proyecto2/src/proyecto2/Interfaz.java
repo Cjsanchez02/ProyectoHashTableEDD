@@ -10,6 +10,9 @@ package proyecto2;
  */
 public class Interfaz extends javax.swing.JFrame {
     HashTable tabla = new HashTable(100);
+    ArbolAVL autores;
+    ArbolAVL keywords;
+    ArbolAVL inv;
     
     private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(Interfaz.class.getName());
 
@@ -18,6 +21,9 @@ public class Interfaz extends javax.swing.JFrame {
      */
     public Interfaz() {
         initComponents();
+        this.sel.setVisible(false);
+        this.selbusq.setVisible(false);
+        this.jLabel4.setVisible(false);
     }
 
     /**
@@ -40,10 +46,15 @@ public class Interfaz extends javax.swing.JFrame {
         exit = new javax.swing.JButton();
         cargarResu = new javax.swing.JButton();
         busqresu = new javax.swing.JButton();
-        busqkeyw = new javax.swing.JButton();
+        busqkeywinv = new javax.swing.JButton();
         jLabel3 = new javax.swing.JLabel();
         keyw = new javax.swing.JComboBox<>();
         busqaut = new javax.swing.JButton();
+        jLabel4 = new javax.swing.JLabel();
+        sel = new javax.swing.JComboBox<>();
+        selbusq = new javax.swing.JButton();
+        keywsee = new javax.swing.JButton();
+        contses = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -54,8 +65,7 @@ public class Interfaz extends javax.swing.JFrame {
         jLabel1.setText("Resumen a seleccionar:");
         getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(460, 80, -1, -1));
 
-        resu.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
-        getContentPane().add(resu, new org.netbeans.lib.awtextra.AbsoluteConstraints(590, 80, -1, -1));
+        getContentPane().add(resu, new org.netbeans.lib.awtextra.AbsoluteConstraints(590, 80, 90, -1));
 
         jTextArea1.setColumns(20);
         jTextArea1.setRows(5);
@@ -66,8 +76,7 @@ public class Interfaz extends javax.swing.JFrame {
         jLabel2.setText("Búsqueda por autor:");
         getContentPane().add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(460, 160, -1, -1));
 
-        aut.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
-        getContentPane().add(aut, new org.netbeans.lib.awtextra.AbsoluteConstraints(580, 160, -1, -1));
+        getContentPane().add(aut, new org.netbeans.lib.awtextra.AbsoluteConstraints(580, 160, 100, -1));
 
         exit.setText("X");
         exit.addActionListener(new java.awt.event.ActionListener() {
@@ -93,19 +102,18 @@ public class Interfaz extends javax.swing.JFrame {
         });
         getContentPane().add(busqresu, new org.netbeans.lib.awtextra.AbsoluteConstraints(540, 120, -1, -1));
 
-        busqkeyw.setText("Continuar");
-        busqkeyw.addActionListener(new java.awt.event.ActionListener() {
+        busqkeywinv.setText("Investigación");
+        busqkeywinv.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                busqkeywActionPerformed(evt);
+                busqkeywinvActionPerformed(evt);
             }
         });
-        getContentPane().add(busqkeyw, new org.netbeans.lib.awtextra.AbsoluteConstraints(530, 260, -1, -1));
+        getContentPane().add(busqkeywinv, new org.netbeans.lib.awtextra.AbsoluteConstraints(480, 260, -1, -1));
 
         jLabel3.setText("Búsqueda por palabra clave:");
         getContentPane().add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(460, 230, -1, -1));
 
-        keyw.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
-        getContentPane().add(keyw, new org.netbeans.lib.awtextra.AbsoluteConstraints(620, 230, -1, -1));
+        getContentPane().add(keyw, new org.netbeans.lib.awtextra.AbsoluteConstraints(620, 230, 80, -1));
 
         busqaut.setText("Continuar");
         busqaut.addActionListener(new java.awt.event.ActionListener() {
@@ -114,6 +122,35 @@ public class Interfaz extends javax.swing.JFrame {
             }
         });
         getContentPane().add(busqaut, new org.netbeans.lib.awtextra.AbsoluteConstraints(530, 190, -1, -1));
+
+        jLabel4.setText("Selección:");
+        getContentPane().add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(460, 310, -1, -1));
+
+        getContentPane().add(sel, new org.netbeans.lib.awtextra.AbsoluteConstraints(520, 310, -1, -1));
+
+        selbusq.setText("Continuar");
+        selbusq.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                selbusqActionPerformed(evt);
+            }
+        });
+        getContentPane().add(selbusq, new org.netbeans.lib.awtextra.AbsoluteConstraints(600, 310, -1, -1));
+
+        keywsee.setText("Ver palabra");
+        keywsee.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                keywseeActionPerformed(evt);
+            }
+        });
+        getContentPane().add(keywsee, new org.netbeans.lib.awtextra.AbsoluteConstraints(590, 260, -1, -1));
+
+        contses.setText("Continuar sesión previa");
+        contses.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                contsesActionPerformed(evt);
+            }
+        });
+        getContentPane().add(contses, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 340, -1, -1));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -125,23 +162,92 @@ public class Interfaz extends javax.swing.JFrame {
     }//GEN-LAST:event_exitActionPerformed
 
     private void cargarResuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cargarResuActionPerformed
+        this.contses.setEnabled(false);
         ManejoArchivos archi = new ManejoArchivos();
         archi.subir_archivo(tabla);
-        
+        this.autores = this.tabla.creaArbolAutores();
+        this.keywords = this.tabla.creaArbolKeywords();
+        String [] textoarbol = this.autores.imprimirInOrden().split(",");
+        for(String s: textoarbol){
+            this.aut.addItem(s);
+        }
+        String [] textokeywords = this.keywords.imprimirInOrden().split(",");
+        for(String s2: textokeywords){
+            this.keyw.addItem(s2);
+        }
+        String [] texto4 = this.tabla.MostrarTitulos().split(".");
+        for(String s3: texto4){
+            this.resu.addItem(s3);
+        }
     }//GEN-LAST:event_cargarResuActionPerformed
 
-    private void busqkeywActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_busqkeywActionPerformed
-        this.tabla.BuscarPalabraClave(this.keyw.getSelectedItem().toString());
-    }//GEN-LAST:event_busqkeywActionPerformed
+    private void busqkeywinvActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_busqkeywinvActionPerformed
+        this.contses.setEnabled(false);
+        Investigaciones [] aux =this.tabla.BuscarPalabraClave(this.keyw.getSelectedItem().toString());
+        this.sel.setVisible(true);
+        this.selbusq.setVisible(true);
+        this.jLabel4.setVisible(true);
+        String texto = "";
+        for(Investigaciones aux2: aux){
+            texto += aux2.titulo + "\n";
+            this.sel.addItem(aux2.titulo);
+        }
+        this.jTextArea1.setText(texto);
+    }//GEN-LAST:event_busqkeywinvActionPerformed
 
     private void busqautActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_busqautActionPerformed
-        // TODO add your handling code here:
+        this.contses.setEnabled(false);
+        NodoArbol aux = this.autores.Buscar(this.autores.raiz, this.aut.getSelectedItem().toString());
+        NodoInvestigacion aux2 = aux.lista.pfirst;
+        this.sel.setVisible(true);
+        this.selbusq.setVisible(true);
+        this.jLabel4.setVisible(true);
+        String texto = "";
+        while(aux2 != null){
+            texto += aux2.info +"\n";
+            this.sel.addItem(aux2.info);
+            aux2 = aux2.pnext;
+        }
+        this.jTextArea1.setText(texto);
     }//GEN-LAST:event_busqautActionPerformed
 
     private void busqresuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_busqresuActionPerformed
-        String texto = this.tabla.BuscarResumen(this.resu.getSelectedItem().toString()).mostrar();
+        this.contses.setEnabled(false);
+        String texto = this.tabla.BuscarResumen(this.resu.getSelectedItem().toString()).mostrarcomp();
         this.jTextArea1.setText(texto);
     }//GEN-LAST:event_busqresuActionPerformed
+
+    private void selbusqActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_selbusqActionPerformed
+        this.contses.setEnabled(false);
+        String texto = this.sel.getSelectedItem().toString();
+        this.jTextArea1.setText(this.tabla.BuscarResumen(texto).mostrarcomp());
+    }//GEN-LAST:event_selbusqActionPerformed
+
+    private void keywseeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_keywseeActionPerformed
+        this.contses.setEnabled(false);
+        NodoArbol aux = this.keywords.Buscar(this.keywords.raiz, this.keyw.getSelectedItem().toString());
+        this.jTextArea1.setText(aux.lista.mostrarfreqkeyw(tabla, this.keyw.getSelectedItem().toString()));
+    }//GEN-LAST:event_keywseeActionPerformed
+
+    private void contsesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_contsesActionPerformed
+        ManejoArchivos archi = new ManejoArchivos();
+        archi.subir_archivocomp(tabla);
+        this.autores = this.tabla.creaArbolAutores();
+        this.keywords = this.tabla.creaArbolKeywords();
+        String [] textoarbol = this.autores.imprimirInOrden().split(",");
+        for(String s: textoarbol){
+            this.aut.addItem(s);
+        }
+        String [] textokeywords = this.keywords.imprimirInOrden().split(",");
+        for(String s2: textokeywords){
+            this.keyw.addItem(s2);
+        }
+        String [] texto4 = this.tabla.MostrarTitulos().split(".");
+        for(String s3: texto4){
+            this.resu.addItem(s3);
+        }
+        this.contses.setEnabled(false);
+    }//GEN-LAST:event_contsesActionPerformed
 
     /**
      * @param args the command line arguments
@@ -171,18 +277,23 @@ public class Interfaz extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JComboBox<String> aut;
     private javax.swing.JButton busqaut;
-    private javax.swing.JButton busqkeyw;
+    private javax.swing.JButton busqkeywinv;
     private javax.swing.JButton busqresu;
     private javax.swing.ButtonGroup buttonGroup1;
     private javax.swing.JButton cargarResu;
+    private javax.swing.JButton contses;
     private javax.swing.JButton exit;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTextArea jTextArea1;
     private javax.swing.JComboBox<String> keyw;
+    private javax.swing.JButton keywsee;
     private javax.swing.JComboBox<String> resu;
+    private javax.swing.JComboBox<String> sel;
+    private javax.swing.JButton selbusq;
     // End of variables declaration//GEN-END:variables
 }

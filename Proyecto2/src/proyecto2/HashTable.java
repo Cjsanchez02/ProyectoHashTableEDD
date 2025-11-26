@@ -33,7 +33,7 @@ public class HashTable {
     }
 
     public void AgregrarPalabrasClaves(Investigaciones resumen) {
-        String claves[] = resumen.palabras_claves.split(",");
+        String claves[] = resumen.keywords.split(",");
         for (int i = 0; i < claves.length; i++) {
             int indice = this.HashKeys(claves[i]);
 
@@ -92,11 +92,39 @@ public class HashTable {
 
         for (int i = 0; i < this.Resumenes.length; i++) {
             try {
-                recorrido += this.Resumenes[i].MostrarTitulosListaHash() + "\n";
+                recorrido += this.Resumenes[i].MostrarTitulosListaHash() + " ";
             } catch (Exception e) {
 
             }
         }
         return recorrido;
+    }
+    
+    public ArbolAVL creaArbolAutores(){
+        ArbolAVL aux = new ArbolAVL(true);
+        for(ListaHash s: this.Resumenes){
+            NodoHash aux2 = s.pFirst;
+            while(aux2 != null){
+                String [] aux3 = aux2.data.autores.split(",");
+                for(String s2: aux3){
+                    aux.insertarAutor(s2, aux2.data.titulo);
+                }
+            }
+        }
+        return aux;
+    }
+    
+    public ArbolAVL creaArbolKeywords(){
+        ArbolAVL aux = new ArbolAVL(false);
+        for(ListaHash s: this.Resumenes){
+            NodoHash aux2 = s.pFirst;
+            while(aux2 != null){
+                String [] aux3 = aux2.data.keywords.split(",");
+                for(String s2: aux3){
+                    aux.insertarAutor(s2, aux2.data.titulo);
+                }
+            }
+        }
+        return aux;
     }
 }

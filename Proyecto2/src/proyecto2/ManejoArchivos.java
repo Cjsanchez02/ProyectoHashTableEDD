@@ -85,10 +85,66 @@ public class ManejoArchivos {
             file.showSaveDialog(null);
             FileWriter archivo2 = new FileWriter(file.getSelectedFile());
             BufferedWriter escribe = new BufferedWriter(archivo2);
-            for(Investigaciones inv: algo.conjunto){
-                escribe.write(inv.mostrar() + "\f");
+            for(ListaHash cosa: algo.Resumenes){
+                NodoHash aux = cosa.pFirst;
+                while(aux != null){
+                escribe.write(aux.data.mostrar() + "\f");
+                aux = aux.pNext;
+                }
             }
             escribe.close();
+        }catch(IOException e){
+            JOptionPane.showMessageDialog(null, "Ocurrió un error");
+        }
+    }
+    
+    /** Se carga un archivo que consista de varia investigaciones, en otras palabras
+     * una sesi&oacute;n previa.
+     * 
+     * @param algo tabla hash
+     */
+    public void subir_archivocomp(HashTable algo){
+        try{
+            JFileChooser file = new JFileChooser();
+            file.showOpenDialog(null);
+            File archivo = file.getSelectedFile();
+            this.selectedArchivo = archivo;
+            if(archivo != null){
+                int aux = 0;
+                String tit = "";
+                FileReader archivo_2 = new FileReader(archivo);
+                BufferedReader lee = new BufferedReader(archivo_2);
+                String currentLine;
+                while((currentLine = lee.readLine())!= null){
+                    if(aux == 0){
+                        Investigaciones inv = new Investigaciones();
+                        inv.autores = currentLine;
+                        algo.AgregarResumen(inv);
+                        tit = currentLine;
+                    }
+                    if(currentLine.equalsIgnoreCase("autores")){
+                        aux = 1;
+                    }
+                    if(currentLine.equalsIgnoreCase("resumen")){
+                        aux = 2;
+                    }
+                    if((aux == 1) && (!currentLine.equalsIgnoreCase("autores") && (!currentLine.isEmpty()))){
+                        if(algo.BuscarResumen(tit).autores.isBlank()){
+                            algo.BuscarResumen(tit).autores = currentLine;
+                        }
+                        algo.BuscarResumen(tit).autores = algo.BuscarResumen(tit).autores + ", " + currentLine;
+                    }
+                    if((aux == 2) && (!currentLine.equalsIgnoreCase("resumen") && (!currentLine.isEmpty()))){
+                        algo.BuscarResumen(tit).resumen = currentLine + " ";
+                    }
+                    if((currentLine.startsWith("Palabras claves:") && (!currentLine.isEmpty()))){
+                        String [] aux2 = currentLine.split("[.\\:]");
+                        algo.BuscarResumen(tit).keywords = aux2[1];
+                        algo.BuscarResumen(tit).contar_keywords();
+                        aux = 0;
+                    }
+                }
+            }
         }catch(IOException e){
             JOptionPane.showMessageDialog(null, "Ocurrió un error");
         }

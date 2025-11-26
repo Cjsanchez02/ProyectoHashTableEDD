@@ -59,4 +59,21 @@ public class ListaInvestigaciones {
         }
         return resultado;
     }
+    
+    public String mostrarfreqkeyw(HashTable algo, String info){
+        String texto = "";
+        NodoInvestigacion aux = this.pfirst;
+        while(aux != null){
+            Investigaciones aux2 = algo.BuscarResumen(aux.info);
+            String [] aux3 = aux2.keywords.split(",");
+            String [] aux4 = aux2.freqkeywords.split(",");
+            int cont = 0;
+            while(aux3[cont] != info){
+                cont += 1;
+            }
+            texto += "Aparece en: " + aux2.titulo + " " + aux4[cont] + ".\n";
+            aux = aux.pnext;
+        }
+        return texto;
+    }
 }
