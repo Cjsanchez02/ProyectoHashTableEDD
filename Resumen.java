@@ -5,8 +5,13 @@
 package proyecto_estructuras_2;
 
 /**
+ * Clase Resumen
+ * Representa los componentes que posee cada resumen.
+ * Esta clase actúa como un contenedor de datos (Data Transfer Object) para almacenar
+ * la información vital recuperada o a ser almacenada en la Tabla Hash.
  *
- * @author Antho
+ * @author Anthony Goncalves
+ * @version 1.0
  */
 public class Resumen {
     public String titulo;
@@ -14,6 +19,15 @@ public class Resumen {
     public String cuerpo;
     public String palabras_claves;
 
+    
+    /**
+     * Constructor para crear una nueva instancia de un Resumen.
+     *
+     * @param titulo          El título del documento.
+     * @param autores         Nombre de los autores del documento.
+     * @param cuerpo          El texto o cuerpo del resumen.
+     * @param palabras_claves Las palabras claves de cada resumen.
+     */
     public Resumen(String titulo, String autores, String cuerpo, String palabras_claves) {
         this.titulo = titulo;
         this.autores = autores;
