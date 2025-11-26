@@ -64,17 +64,15 @@ public class Investigaciones {
         texto += "Autores: ";
         String [] aux = this.autores.split(",");
         for(String s: aux){
-            if(s == aux[0]){
-                texto += texto + s.trim();
-            }
-            texto += texto + ", " + s.trim();
+            texto += s.trim() + ", ";
         }
         texto += "\nResumen:\n" + this.resumen + "\nPalabras claves: ";
         int cont = 0;
         String [] aux2 = this.keywords.split(",");
         String [] aux3 = this.freqkeywords.split(",");
-        while(cont <= aux2.length){
-            texto += aux2[cont] + " aparece " + aux3[cont] + "vez/veces,  ";
+        while(cont < aux2.length){
+            texto += aux2[cont] + " aparece " + aux3[cont] + " vez/veces,  ";
+            cont += 1;
         }
         return texto;
     }

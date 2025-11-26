@@ -42,9 +42,9 @@ public class ManejoArchivos {
                 BufferedReader lee = new BufferedReader(archivo_2);
                 String currentLine;
                 while((currentLine = lee.readLine())!= null){
-                    if(aux == 0){
+                    if(aux == 0 && !currentLine.equalsIgnoreCase("autores")){
                         Investigaciones inv = new Investigaciones();
-                        inv.autores = currentLine;
+                        inv.titulo = currentLine;
                         algo.AgregarResumen(inv);
                         tit = currentLine;
                     }
@@ -62,11 +62,16 @@ public class ManejoArchivos {
                     }
                     if((aux == 2) && (!currentLine.equalsIgnoreCase("resumen") && (!currentLine.isEmpty()))){
                         algo.BuscarResumen(tit).resumen = currentLine + " ";
+                        System.out.println(algo.BuscarResumen(tit).resumen);
                     }
                     if((currentLine.startsWith("Palabras claves:") && (!currentLine.isEmpty()))){
                         String [] aux2 = currentLine.split("[.\\:]");
                         algo.BuscarResumen(tit).keywords = aux2[1];
                         algo.BuscarResumen(tit).contar_keywords();
+                        System.out.println(algo.BuscarResumen(tit).resumen);
+                        System.out.println("hola");
+                        
+                        System.out.println(algo.BuscarResumen(tit).mostrarcomp());
                     }
                 }
             }

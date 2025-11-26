@@ -10,6 +10,7 @@ package proyecto2;
  */
 public class Interfaz extends javax.swing.JFrame {
     HashTable tabla = new HashTable(100);
+    HashTable keys = new HashTable(60);
     ArbolAVL autores;
     ArbolAVL keywords;
     
@@ -64,7 +65,7 @@ public class Interfaz extends javax.swing.JFrame {
         jLabel1.setText("Resumen a seleccionar:");
         getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(460, 80, -1, -1));
 
-        getContentPane().add(resu, new org.netbeans.lib.awtextra.AbsoluteConstraints(590, 80, 90, -1));
+        getContentPane().add(resu, new org.netbeans.lib.awtextra.AbsoluteConstraints(590, 80, 160, -1));
 
         jTextArea1.setColumns(20);
         jTextArea1.setRows(5);
@@ -75,7 +76,7 @@ public class Interfaz extends javax.swing.JFrame {
         jLabel2.setText("Búsqueda por autor:");
         getContentPane().add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(460, 160, -1, -1));
 
-        getContentPane().add(aut, new org.netbeans.lib.awtextra.AbsoluteConstraints(580, 160, 100, -1));
+        getContentPane().add(aut, new org.netbeans.lib.awtextra.AbsoluteConstraints(580, 160, 170, -1));
 
         exit.setText("X");
         exit.addActionListener(new java.awt.event.ActionListener() {
@@ -83,7 +84,7 @@ public class Interfaz extends javax.swing.JFrame {
                 exitActionPerformed(evt);
             }
         });
-        getContentPane().add(exit, new org.netbeans.lib.awtextra.AbsoluteConstraints(680, 0, -1, -1));
+        getContentPane().add(exit, new org.netbeans.lib.awtextra.AbsoluteConstraints(780, 0, -1, -1));
 
         cargarResu.setText("Añadir resumen");
         cargarResu.addActionListener(new java.awt.event.ActionListener() {
@@ -91,7 +92,7 @@ public class Interfaz extends javax.swing.JFrame {
                 cargarResuActionPerformed(evt);
             }
         });
-        getContentPane().add(cargarResu, new org.netbeans.lib.awtextra.AbsoluteConstraints(520, 40, -1, -1));
+        getContentPane().add(cargarResu, new org.netbeans.lib.awtextra.AbsoluteConstraints(560, 40, -1, -1));
 
         busqresu.setText("Analizar");
         busqresu.addActionListener(new java.awt.event.ActionListener() {
@@ -99,7 +100,7 @@ public class Interfaz extends javax.swing.JFrame {
                 busqresuActionPerformed(evt);
             }
         });
-        getContentPane().add(busqresu, new org.netbeans.lib.awtextra.AbsoluteConstraints(540, 120, -1, -1));
+        getContentPane().add(busqresu, new org.netbeans.lib.awtextra.AbsoluteConstraints(570, 120, -1, -1));
 
         busqkeywinv.setText("Investigación");
         busqkeywinv.addActionListener(new java.awt.event.ActionListener() {
@@ -107,12 +108,12 @@ public class Interfaz extends javax.swing.JFrame {
                 busqkeywinvActionPerformed(evt);
             }
         });
-        getContentPane().add(busqkeywinv, new org.netbeans.lib.awtextra.AbsoluteConstraints(480, 260, -1, -1));
+        getContentPane().add(busqkeywinv, new org.netbeans.lib.awtextra.AbsoluteConstraints(510, 270, -1, -1));
 
         jLabel3.setText("Búsqueda por palabra clave:");
         getContentPane().add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(460, 230, -1, -1));
 
-        getContentPane().add(keyw, new org.netbeans.lib.awtextra.AbsoluteConstraints(620, 230, 80, -1));
+        getContentPane().add(keyw, new org.netbeans.lib.awtextra.AbsoluteConstraints(620, 230, 130, -1));
 
         busqaut.setText("Continuar");
         busqaut.addActionListener(new java.awt.event.ActionListener() {
@@ -120,12 +121,12 @@ public class Interfaz extends javax.swing.JFrame {
                 busqautActionPerformed(evt);
             }
         });
-        getContentPane().add(busqaut, new org.netbeans.lib.awtextra.AbsoluteConstraints(530, 190, -1, -1));
+        getContentPane().add(busqaut, new org.netbeans.lib.awtextra.AbsoluteConstraints(560, 190, -1, -1));
 
         jLabel4.setText("Selección:");
-        getContentPane().add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(460, 310, -1, -1));
+        getContentPane().add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(500, 320, -1, -1));
 
-        getContentPane().add(sel, new org.netbeans.lib.awtextra.AbsoluteConstraints(520, 310, -1, -1));
+        getContentPane().add(sel, new org.netbeans.lib.awtextra.AbsoluteConstraints(560, 320, -1, -1));
 
         selbusq.setText("Continuar");
         selbusq.addActionListener(new java.awt.event.ActionListener() {
@@ -133,7 +134,7 @@ public class Interfaz extends javax.swing.JFrame {
                 selbusqActionPerformed(evt);
             }
         });
-        getContentPane().add(selbusq, new org.netbeans.lib.awtextra.AbsoluteConstraints(600, 310, -1, -1));
+        getContentPane().add(selbusq, new org.netbeans.lib.awtextra.AbsoluteConstraints(640, 320, -1, -1));
 
         keywsee.setText("Ver palabra");
         keywsee.addActionListener(new java.awt.event.ActionListener() {
@@ -141,7 +142,7 @@ public class Interfaz extends javax.swing.JFrame {
                 keywseeActionPerformed(evt);
             }
         });
-        getContentPane().add(keywsee, new org.netbeans.lib.awtextra.AbsoluteConstraints(590, 260, -1, -1));
+        getContentPane().add(keywsee, new org.netbeans.lib.awtextra.AbsoluteConstraints(620, 270, -1, -1));
 
         contses.setText("Continuar sesión previa");
         contses.addActionListener(new java.awt.event.ActionListener() {
@@ -165,7 +166,10 @@ public class Interfaz extends javax.swing.JFrame {
         ManejoArchivos archi = new ManejoArchivos();
         archi.subir_archivo(tabla);
         this.autores = this.tabla.creaArbolAutores();
+        System.out.println("creo arbol autores");
         this.keywords = this.tabla.creaArbolKeywords();
+        System.out.println("creo arbol keywords");
+        System.out.println(this.autores.imprimirInOrden());
         String [] textoarbol = this.autores.imprimirInOrden().split(",");
         for(String s: textoarbol){
             this.aut.addItem(s);
